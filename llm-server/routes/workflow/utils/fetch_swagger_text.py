@@ -10,7 +10,7 @@ shared_folder = os.getenv("SHARED_FOLDER", "/app/shared_data/")
 
 def fetch_swagger_text(swagger_url: str) -> str:
     if swagger_url.startswith("https://"):
-        response = requests.get(swagger_url)
+        response = requests.get(swagger_url, timeout=60)
         if response.status_code == 200:
             try:
                 # Try parsing the content as JSON
