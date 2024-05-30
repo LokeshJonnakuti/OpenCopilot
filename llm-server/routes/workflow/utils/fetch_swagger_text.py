@@ -1,16 +1,16 @@
 import json
 import yaml
 from yaml.parser import ParserError
-import requests
 
 import os
+from security import safe_requests
 
 shared_folder = os.getenv("SHARED_FOLDER", "/app/shared_data/")
 
 
 def fetch_swagger_text(swagger_url: str) -> str:
     if swagger_url.startswith("https://"):
-        response = requests.get(swagger_url)
+        response = safe_requests.get(swagger_url)
         if response.status_code == 200:
             try:
                 # Try parsing the content as JSON

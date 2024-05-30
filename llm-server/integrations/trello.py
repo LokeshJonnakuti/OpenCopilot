@@ -1,9 +1,8 @@
-from typing import Dict, Any, Optional
-import requests
+from typing import Dict, Any
 
 
 from typing import Dict, Any
-import requests
+from security import safe_requests
 
 
 def process_state(headers: Dict[str, Any]) -> Dict[str, Any]:
@@ -18,7 +17,7 @@ def process_state(headers: Dict[str, Any]) -> Dict[str, Any]:
 
     # Step 1: Get the list of boards
     boards_endpoint = "https://api.trello.com/1/members/me?boards=open"
-    response = requests.get(boards_endpoint, headers=headers)
+    response = safe_requests.get(boards_endpoint, headers=headers)
     boards_data = response.json()
 
     for board in boards_data["boards"]:
@@ -26,7 +25,7 @@ def process_state(headers: Dict[str, Any]) -> Dict[str, Any]:
         board_name = board["name"]
 
         lists_endpoint = f"https://api.trello.com/1/boards/{board_id}/lists"
-        response = requests.get(lists_endpoint, headers=headers)
+        response = safe_requests.get(lists_endpoint, headers=headers)
         lists_data = response.json()
 
         for l in lists_data:
@@ -45,7 +44,7 @@ def process_state(headers: Dict[str, Any]) -> Dict[str, Any]:
 
             # Step 3: Get the cards for the current list
             cards_endpoint = f"https://api.trello.com/1/lists/{list_id}/cards"
-            response = requests.get(cards_endpoint, headers=headers)
+            response = safe_requests.get(cards_endpoint, headers=headers)
             cards_data = response.json()
 
             for card in cards_data:
