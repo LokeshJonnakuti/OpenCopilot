@@ -1,8 +1,8 @@
 from typing import Any, Dict, List, Union
 import json
-import random
 
 from faker import Faker
+import secrets
 
 fake = Faker()
 
@@ -42,7 +42,7 @@ def generate_example_json(
                 return example_property
             elif property_schema["type"] == "string":
                 if "enum" in property_schema:
-                    return random.choice(property_schema["enum"])
+                    return secrets.choice(property_schema["enum"])
                 else:
                     return fake.word()
             elif property_schema["type"] == "integer":
