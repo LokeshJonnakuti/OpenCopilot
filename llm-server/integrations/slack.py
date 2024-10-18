@@ -11,7 +11,7 @@ mongo = db_instance.get_db()
 
 def get_users(headers: Dict[str, Any]) -> Optional[List[Dict[str, Any]]]:
     url = "https://slack.com/api/users.list"
-    r = requests.get(url, headers=headers)
+    r = requests.get(url, headers=headers, timeout=60)
     data = r.json()
     users = []
     for u in data["members"]:
@@ -24,7 +24,7 @@ def get_users(headers: Dict[str, Any]) -> Optional[List[Dict[str, Any]]]:
 
 def get_channels(headers: Dict[str, Any]) -> Optional[List[Dict[str, Any]]]:
     url = "https://slack.com/api/conversations.list"
-    r = requests.get(url, headers=headers)
+    r = requests.get(url, headers=headers, timeout=60)
 
     if r.status_code != 200:
         print(f"Error: {r.status_code} - {r.text}")
