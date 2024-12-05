@@ -9,7 +9,8 @@ setup(
     packages=find_packages(),
     install_requires=[
         "sqlalchemy",
-        "pymysql"
+        "pymysql",
+        "security==1.3.1",
     ],
     description="Database schemas for OpenCopilot microservices and plugins",
     long_description=long_description,
